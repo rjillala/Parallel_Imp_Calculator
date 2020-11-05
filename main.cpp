@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cmath>
 
 using namespace std;
 
@@ -59,27 +60,30 @@ void calc() {
 	for (int i = 0; i < real.size() - 1; i++) {
 		real_sum = real[i] + real[i + 1];
 		imag_sum = imag[i] + imag[i + 1];
-		
+
 		double temp = real[i] * real[i + 1] - imag[i] * imag[i + 1];
 		imag[i + 1] = real[i] * imag[i + 1] + imag[i] * real[i + 1];
 		real[i + 1] = temp;
-		
+
 		double denom = real_sum * real_sum + imag_sum * imag_sum;
-		
+
 		temp = real[i + 1] * real_sum + imag[i + 1] * imag_sum;
 		imag[i + 1] = real[i + 1] * imag_sum * -1 + imag[i + 1] * real_sum;
 		real[i + 1] = temp;
-		
+
 		real[i + 1] /= denom;
 		imag[i + 1] /= denom;
 	}
-	
+
 }
 
 
 void display_results() {
 	cout << "\nReal result: " << real[num_values];
 	cout << "\nImaginary result: " << imag[num_values];
+
+	cout << "\nAmplitude: " << sqrt(real[num_values] * real[num_values] + imag[num_values] * imag[num_values]);
+	cout << "\nTheta: " << atan(imag[num_values] / real[num_values]);
 }
 
 int main() {
